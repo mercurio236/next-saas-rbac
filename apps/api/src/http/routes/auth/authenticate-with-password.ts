@@ -15,6 +15,14 @@ export async function authenticateWithPassword(app: FastifyInstance) {
           email: z.email(),
           password: z.string(),
         }),
+        response: {
+          400: z.object({
+            message: z.string(),
+          }),
+          201: z.object({
+            token: z.string(),
+          }),
+        },
       },
     },
     async (request, reply) => {
@@ -42,7 +50,7 @@ export async function authenticateWithPassword(app: FastifyInstance) {
         return reply.status(400).send({ message: 'Invalid credentials.' })
       }
 
-      const token = reply.jwtSign(
+      const token = await reply.jwtSign(
         {
           sub: userFromEmail.id,
         },
@@ -53,7 +61,7 @@ export async function authenticateWithPassword(app: FastifyInstance) {
         }
       )
 
-      return reply.status(201).send(token)
+      return reply.status(201).send({ token })
     }
   )
 }
