@@ -1,11 +1,9 @@
 import { prisma } from '@/lib/prisma'
-import { compare } from 'bcryptjs'
+import { env } from '@saas/env'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { UnauthorizedError } from '../_error/unauthorized-error'
 import { BadRequestError } from '../_error/bad-request-error'
-import { env } from '@saas/env'
 
 export async function authenticateWithGithub(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
