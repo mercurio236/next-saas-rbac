@@ -1,5 +1,5 @@
 import 'fastify'
-import { Organization, Member } from '@prisma/client'
+import { Organization, Member } from '../src/generated/prisma/client'
 declare module 'fastify' {
   export interface FastifyRequest {
     getCurrentUserId(): Promise<string>
