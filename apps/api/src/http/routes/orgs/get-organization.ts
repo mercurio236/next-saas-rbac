@@ -1,10 +1,7 @@
 import { auth } from '@/http/middlewares/auth'
-import { prisma } from '@/lib/prisma'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { BadRequestError } from '../_error/bad-request-error'
-import { createSlug } from '@/utils/create-slug'
 
 export async function getOrganization(app: FastifyInstance) {
   app
@@ -37,7 +34,7 @@ export async function getOrganization(app: FastifyInstance) {
           },
         },
       },
-      async (request, reply) => {
+      async (request) => {
         const { slug } = request.params
         const { organization } = await request.getUserMembership(slug)
 
