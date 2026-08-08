@@ -2,8 +2,6 @@ import { prisma } from '@/lib/prisma'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { BadRequestError } from '../_error/bad-request-error'
-import { auth } from '@/http/middlewares/auth'
 
 export async function requestPasswordRecovered(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(

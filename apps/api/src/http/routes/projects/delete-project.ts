@@ -6,8 +6,8 @@ import { z } from 'zod'
 import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
 import { getUserPermissions } from '@/utils/get-user-permissions'
-import { BadRequestError } from '../_error/bad-request-error'
-import { UnauthorizedError } from '../_error/unauthorized-error'
+import { BadRequestError } from '@/http/_error/bad-request-error'
+import { UnauthorizedError } from '@/http/_error/unauthorized-error'
 
 export async function deleteProject(app: FastifyInstance) {
   app

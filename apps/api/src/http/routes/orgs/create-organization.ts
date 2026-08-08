@@ -3,8 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { BadRequestError } from '../_error/bad-request-error'
 import { createSlug } from '@/utils/create-slug'
+import { BadRequestError } from '@/http/_error/bad-request-error'
 
 export async function createOrganization(app: FastifyInstance) {
   app

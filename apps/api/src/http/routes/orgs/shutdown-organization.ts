@@ -1,3 +1,4 @@
+import { UnauthorizedError } from '@/http/_error/unauthorized-error'
 import { auth } from '@/http/middlewares/auth'
 import { prisma } from '@/lib/prisma'
 import { getUserPermissions } from '@/utils/get-user-permissions'
@@ -5,7 +6,6 @@ import { organizationSchema } from '@saas/auth'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { UnauthorizedError } from '../_error/unauthorized-error'
 
 export async function shutdownOrganization(app: FastifyInstance) {
   app

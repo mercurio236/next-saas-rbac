@@ -1,11 +1,9 @@
+import { UnauthorizedError } from '@/http/_error/unauthorized-error'
 import { prisma } from '@/lib/prisma'
+import { hash } from 'bcryptjs'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { BadRequestError } from '../_error/bad-request-error'
-import { auth } from '@/http/middlewares/auth'
-import { UnauthorizedError } from '../_error/unauthorized-error'
-import { hash } from 'bcryptjs'
 
 export async function resetPassword(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(

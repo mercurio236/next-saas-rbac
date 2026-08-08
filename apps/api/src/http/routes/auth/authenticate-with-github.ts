@@ -1,9 +1,9 @@
+import { BadRequestError } from '@/http/_error/bad-request-error'
 import { prisma } from '@/lib/prisma'
 import { env } from '@saas/env'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { BadRequestError } from '../_error/bad-request-error'
 
 export async function authenticateWithGithub(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
