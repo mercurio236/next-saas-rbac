@@ -2,3 +2,12 @@ packages:
   - "apps/*"
   - "packages/*"
   - "config/*"
+
+allowBuilds:
+  "@prisma/engines": true
+  esbuild: true
+  prisma: true
+
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
