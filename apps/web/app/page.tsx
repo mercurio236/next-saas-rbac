@@ -1,6 +1,9 @@
+import { Button } from "@saas/ui/components/button";
 
 export default function Home() {
   return (
-    <h1>Hello word</h1>
+    <div>
+      <Button>oi</Button>
+    </div>
   )
 }
