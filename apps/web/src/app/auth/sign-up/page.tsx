@@ -1,0 +1,53 @@
+import { Button } from '@saas/ui/components/button'
+import { Input } from '@saas/ui/components/input'
+import { Label } from '@saas/ui/components/label'
+import { Separator } from '@saas/ui/components/separator'
+import Link from 'next/link'
+
+import githubIcon from '@/src/assets/github.svg'
+import Image from 'next/image'
+
+export default function SignInPage() {
+  return (
+    <form action="" className="space-y-4">
+      <div className="space-y-1">
+        <Label htmlFor="mame">Name</Label>
+        <Input name="mame" id="mame" />
+      </div>
+      <div className="space-y-1">
+        <Label htmlFor="email">E-mail</Label>
+        <Input name="email" type="email" id="email" />
+      </div>
+      <div className="space-y-1">
+        <Label htmlFor="password">Password</Label>
+        <Input name="password" type="password" id="password" />
+      </div>
+      <div className="space-y-1">
+        <Label htmlFor="password_confirmation">Confirm password</Label>
+        <Input
+          name="password_confirmation"
+          type="password"
+          id="password_confirmation"
+        />
+      </div>
+      <Button className="w-full" type="submit">
+        Create account
+      </Button>
+      <Button className="w-full" variant="link" size="sm" asChild>
+        <Link href="/auth/sign-in">Already registered? Sign in</Link>
+      </Button>
+
+      <Separator />
+      <Button className="w-full" variant="outline" type="submit">
+        <Image
+          src={githubIcon}
+          className="mr-2 size-4 dark:invert"
+          alt=""
+          width={10}
+          height={10}
+        />
+        Sign up with github
+      </Button>
+    </form>
+  )
+}
