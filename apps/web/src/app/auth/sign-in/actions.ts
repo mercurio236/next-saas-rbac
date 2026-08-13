@@ -1,4 +1,4 @@
-'use client'
+'use server'
 
 import { signInWithPassword } from '@/src/http/sign-in-with-password'
 
