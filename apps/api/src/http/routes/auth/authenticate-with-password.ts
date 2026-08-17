@@ -1,4 +1,4 @@
-import { UnauthorizedError } from '@/http/_error/unauthorized-error'
+import { BadRequestError } from '@/http/_error/bad-request-error'
 import { prisma } from '@/lib/prisma'
 import { compare } from 'bcryptjs'
 import { FastifyInstance } from 'fastify'
@@ -33,11 +33,11 @@ export async function authenticateWithPassword(app: FastifyInstance) {
       })
 
       if (!userFromEmail) {
-        throw new UnauthorizedError('Invalid credentials.')
+        throw new BadRequestError('Invalid credentials.')
       }
 
       if (userFromEmail.passwordHash === null) {
-        throw new UnauthorizedError(
+        throw new BadRequestError(
           'User does not have a password, use social login.'
         )
       }
@@ -45,7 +45,7 @@ export async function authenticateWithPassword(app: FastifyInstance) {
       const isPassoword = await compare(password, userFromEmail.passwordHash)
 
       if (!isPassoword) {
-        throw new UnauthorizedError('Invalid credentials.')
+        throw new BadRequestError('Invalid credentials.')
       }
 
       const token = await reply.jwtSign(

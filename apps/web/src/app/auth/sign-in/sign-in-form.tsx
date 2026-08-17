@@ -9,7 +9,7 @@ import { Separator } from '@saas/ui/components/separator'
 import Image from 'next/image'
 
 import githubIcon from '@/src/assets/github.svg'
-import { useActionState } from 'react'
+import { useActionState, startTransition } from 'react'
 import { AlertTriangle, Loader2 } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from '@saas/ui/components/alert'
 
@@ -18,8 +18,15 @@ export function SignForm() {
     singInWithEmailAndPassword,
     { success: false, message: null, errors: null }
   )
+
+  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    startTransition(() => formAction(data))
+  }
+
   return (
-    <form action={formAction} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {success === false && message && (
         <Alert variant="destructive">
           <AlertTriangle className="size-4" />

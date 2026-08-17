@@ -28,7 +28,7 @@ export async function singInWithEmailAndPassword(_: unknown, data: FormData) {
     })
   } catch (err) {
     if (err instanceof HTTPError) {
-      const { message } = await err.response.json()
+      const { message } = err.data as { message: string }
 
       return { success: false, message, errors: null }
     }
