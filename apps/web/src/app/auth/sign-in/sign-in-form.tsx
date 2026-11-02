@@ -12,8 +12,10 @@ import githubIcon from '@/src/assets/github.svg'
 import { useActionState, startTransition } from 'react'
 import { AlertTriangle, Loader2 } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from '@saas/ui/components/alert'
+import { useRouter } from 'next/navigation'
 
 export function SignForm() {
+  const route = useRouter()
   const [{ success, message, errors }, formAction, isPending] = useActionState(
     singInWithEmailAndPassword,
     { success: false, message: null, errors: null }
@@ -23,6 +25,9 @@ export function SignForm() {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     startTransition(() => formAction(data))
+    if (success) {
+      route.push('/')
+    }
   }
 
   return (
