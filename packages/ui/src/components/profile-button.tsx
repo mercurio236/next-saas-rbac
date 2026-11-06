@@ -9,9 +9,12 @@ import {
 import Link from 'next/link'
 
 export interface HeaderUserProps {
-  name: string
-  email: string
-  imgAvatar: string | null
+  name: string | null
+  email: string | null
+  avatarUrl: string | null
+}
+export interface HeaderProfileProps {
+  user: HeaderUserProps
 }
 
 function getInitials(name: string): string {
@@ -24,21 +27,21 @@ function getInitials(name: string): string {
   return initials
 }
 
-export async function ProfileButton({
-  email,
-  name,
-  imgAvatar,
-}: HeaderUserProps) {
+export async function ProfileButton({ user }: HeaderProfileProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-3 outline-none">
         <div className="flex flex-col items-end">
-          <span className="text-sm font-medium">{name ?? 'User name'}</span>
-          <span className="text-xs text-zinc-400">{email ?? ''}</span>
+          <span className="text-sm font-medium">
+            {user.name ?? 'User name'}
+          </span>
+          <span className="text-xs text-zinc-400">{user.email ?? ''}</span>
         </div>
         <Avatar>
-          {imgAvatar && <AvatarImage src={imgAvatar} />}
-          <AvatarFallback>{getInitials(name ?? 'Usuário')}</AvatarFallback>
+          {user.avatarUrl && <AvatarImage src={user.avatarUrl} />}
+          <AvatarFallback>
+            {getInitials(user.name ?? 'Usuário name')}
+          </AvatarFallback>
         </Avatar>
         <ChevronDown className="text-muted-foreground size-4" />
       </DropdownMenuTrigger>

@@ -11,7 +11,20 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from './avatar'
 import Link from 'next/link'
 
-export function OrganizationSwitcher() {
+export interface OrganizationProps {
+  id: string
+  name: string
+  slug: string
+  avatarUrl: string | null
+}
+
+export interface OrganizationSwitcher {
+  organizations: OrganizationProps[]
+}
+
+export function OrganizationSwitcher({
+  organizations = [],
+}: OrganizationSwitcher) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus-visible:ring-primary flex w-42 items-center gap-2 rounded p-1 text-sm font-medium outline-none focus-visible:ring-2">
@@ -26,13 +39,19 @@ export function OrganizationSwitcher() {
       >
         <DropdownMenuGroup>
           <DropdownMenuLabel>Organizations</DropdownMenuLabel>
-          <DropdownMenuItem>
-            <Avatar className="mr-2 size-5">
-              <AvatarImage src="https://github.com/mercurio236.png" />
-              <AvatarFallback />
-            </Avatar>
-            <span className="line-clamp-1">SeniorTec</span>
-          </DropdownMenuItem>
+          {organizations.map((organization) => {
+            return (
+              <DropdownMenuItem key={organization.id} asChild>
+                <Link href={`/org/${organization.slug}`}>
+                  <Avatar className="mr-2 size-5">
+                    <AvatarImage src={organization.avatarUrl ?? ''} />
+                    <AvatarFallback />
+                  </Avatar>
+                  <span className="line-clamp-1">{organization.name}</span>
+                </Link>
+              </DropdownMenuItem>
+            )
+          })}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>

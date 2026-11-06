@@ -28,7 +28,7 @@ export function SignUpForm() {
   }
 
   return (
-    <div>
+    <div className="space-y-4">
       <form onSubmit={handleSubmit} action="" className="space-y-4">
         {success === false && message && (
           <Alert variant="destructive">
@@ -91,8 +91,8 @@ export function SignUpForm() {
           <Link href="/auth/sign-in">Already registered? Sign in</Link>
         </Button>
       </form>
+      <Separator />
       <form action={signInWithGitHub}>
-        <Separator />
         <Button className="w-full" variant="outline" type="submit">
           <Image
             src={githubIcon}

@@ -1,10 +1,18 @@
+import { Slash } from 'lucide-react'
 import Image from 'next/image'
 import logo from '../assets/github.com-1.svg'
+import {
+  OrganizationSwitcher,
+  type OrganizationProps,
+} from './organization-swicher'
 import { ProfileButton, type HeaderUserProps } from './profile-button'
-import { Slash } from 'lucide-react'
-import { OrganizationSwitcher } from './organization-swicher'
 
-export function Headers({ email, imgAvatar, name }: HeaderUserProps) {
+interface HeaderProps {
+  user: HeaderUserProps
+  organization: OrganizationProps[]
+}
+
+export function Headers({ user, organization }: HeaderProps) {
   return (
     <div className="mx-auto flex max-w-300 items-center justify-between">
       <div className="flex items-center gap-3">
@@ -16,10 +24,10 @@ export function Headers({ email, imgAvatar, name }: HeaderUserProps) {
         />
         <Slash className="text-border size-3 rotate-[-24deg]" />
 
-        <OrganizationSwitcher />
+        <OrganizationSwitcher organizations={organization} />
       </div>
       <div className="flex items-center gap-4">
-        <ProfileButton email={email} imgAvatar={imgAvatar} name={name} />
+        <ProfileButton user={user} />
       </div>
     </div>
   )
