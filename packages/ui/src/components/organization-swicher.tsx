@@ -1,4 +1,7 @@
-import { ChevronsUpDown, LogOut, PlusCircle } from 'lucide-react'
+import { ChevronsUpDown, PlusCircle } from 'lucide-react'
+import { cookies } from 'next/headers'
+import Link from 'next/link'
+import { Avatar, AvatarFallback, AvatarImage } from './avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,8 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from './avatar'
-import Link from 'next/link'
 
 export interface OrganizationProps {
   id: string
@@ -22,13 +23,27 @@ export interface OrganizationSwitcher {
   organizations: OrganizationProps[]
 }
 
-export function OrganizationSwitcher({
+export async function OrganizationSwitcher({
   organizations = [],
 }: OrganizationSwitcher) {
+  const currentOrg = await (await cookies()).get('org')?.value
+  const currentOrganization = organizations.find(
+    (org) => org.slug === currentOrg
+  )
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus-visible:ring-primary flex w-42 items-center gap-2 rounded p-1 text-sm font-medium outline-none focus-visible:ring-2">
-        <span className="text-muted-foreground">select organization</span>
+        {currentOrganization ? (
+          <>
+            <Avatar className="mr-2 size-5">
+              <AvatarImage src={currentOrganization.avatarUrl ?? ''} />
+              <AvatarFallback />
+            </Avatar>
+            <span className="line-clamp-1">{currentOrganization.name}</span>
+          </>
+        ) : (
+          <span className="truncate text-left">select organization</span>
+        )}
         <ChevronsUpDown className="ml-auto size-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent
