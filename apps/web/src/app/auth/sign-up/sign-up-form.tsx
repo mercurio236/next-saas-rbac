@@ -24,7 +24,6 @@ export function SignUpForm() {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     startTransition(() => formAction(data))
-    console.log(success)
   }
 
   return (
