@@ -3,7 +3,12 @@ import { getOrganizations } from '@/src/http/get-organizations'
 import { Headers } from '@saas/ui/components/header'
 import { redirect } from 'next/navigation'
 
-export default async function AppLayout({ children }: React.PropsWithChildren) {
+interface Props {
+  children: React.ReactNode
+  sheet: React.ReactNode
+}
+
+export default async function AppLayout({ children, sheet }: Props) {
   if (await !isAuthenticated()) {
     redirect('/auth/sign-in')
   }
@@ -21,7 +26,10 @@ export default async function AppLayout({ children }: React.PropsWithChildren) {
         organization={organizations ?? []}
         permissions={permissions}
       />
-      <main className="mx-auto w-full max-w-300">{children}</main>
+      <main className="mx-auto w-full max-w-300">
+        {children}
+        {sheet}
+      </main>
     </div>
   )
 }
