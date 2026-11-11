@@ -1,8 +1,8 @@
+import { defineAbilityFor } from '@saas/auth'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { getProfile } from '../http/get-profile'
 import { getMembership } from '../http/get-membership'
-import { defineAbilityFor } from '@saas/auth'
+import { getProfile } from '../http/get-profile'
 
 export async function isAuthenticated() {
   const cookesStore = await cookies()
@@ -11,6 +11,7 @@ export async function isAuthenticated() {
 
 export async function getCurrentOrg() {
   const cookiesStore = await cookies()
+
   return cookiesStore.get('org')?.value ?? null
 }
 

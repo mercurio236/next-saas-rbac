@@ -8,10 +8,11 @@ export function proxy(request: NextRequest) {
   if (pathname.startsWith('/org')) {
     const [, , slug] = pathname.split('/')
 
-    return response.cookies.set('org', slug)
+    response.cookies.set('org', slug)
   } else {
     response.cookies.delete('org')
   }
+  return response
 }
 
 export const config = {
